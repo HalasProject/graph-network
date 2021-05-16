@@ -51,7 +51,7 @@ Route::get('graphs/{id}/statistics', 'GraphController@oneGraphStatistics');
  * Summary: Edit a specific graph by ID
  * Notes: 
  */
-Route::put('graphs/{id}/edit', 'GraphController@editGraph');
+Route::put('graph/{id}/edit', 'GraphController@editGraph');
 
 /**
  * delete deleteGraph

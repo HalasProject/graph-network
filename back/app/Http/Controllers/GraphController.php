@@ -10,7 +10,7 @@ class GraphController extends BaseController
 {
     public function allGraphs()
     {
-        $graphs = Graph::all();
+        $graphs = Graph::orderBy('created_at', 'DESC')->get();
         return response()->json([
             'data' => $graphs,
             'status' => true
