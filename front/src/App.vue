@@ -35,22 +35,16 @@ export default {
     Navigation,
   },
   created: function () {
-      this.$store.dispatch("GET_ALL_GRAPHS").then(() => {
-      if (this.$store.getters.graphs.length > 0) {
-        this.$store
-          .dispatch("GET_GRAPH_STAT", this.$store.getters.graphs[0].id)
-          .then(() => {
-            this.loading = false;
-          });
-      }
+    this.$store.dispatch("GET_ALL_GRAPHS").then(() => {
+      this.loading = false;
     });
   },
 };
 </script>
 
 <style>
-
-html,body{
+html,
+body {
   overflow: hidden;
 }
 #app {
@@ -125,7 +119,6 @@ html,body{
     width: 0px;
   }
 }
-
 
 /*
  *  STYLE 10

@@ -59,16 +59,16 @@ export default new Vuex.Store({
       })
     },
 
-    DELETE_GRAPH({ dispatch, getters, state }) {
+    DELETE_GRAPH({ getters, state }) {
       fetch(API.graph.delete.replace(':id', getters.current_graph.id), {
         method: 'DELETE', mode: 'cors'
       }).then((response) => response.json())
         .then((res) => {
           new Notyf().success(res.message)
           state.graphs.splice(state.graphs.findIndex((item) => item.id === getters.current_graph.id), 1)
-          if (state.graphs.length > 0) {
-            dispatch('GET_GRAPH_STAT', getters.graphs[0].id)
-          }
+
+          state.currentGraph = null;
+
 
         }).catch((error) => {
           new Notyf().error(error)
@@ -204,9 +204,9 @@ export default new Vuex.Store({
         }).then((response) => response.json()).then((res) => {
           state.currentGraph.nodes.forEach(
             (item) => item.relations
-            .splice(item.relations.findIndex(relation => relation.id == id), 1)
-            )
-          
+              .splice(item.relations.findIndex(relation => relation.id == id), 1)
+          )
+
           new Notyf().success(res.message)
           resolve(true)
         }).catch((error) => {

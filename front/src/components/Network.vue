@@ -81,6 +81,16 @@ export default {
   },
   watch: {
     current_graph(newValue) {
+      if (newValue !== null) {
+        this.update_data(newValue);
+      }
+    },
+    netdata(newValue, oldValue) {
+      console.log({ newValue: newValue, oldValue: oldValue });
+    },
+  },
+  methods: {
+    update_data(newValue) {
       let nodes = [];
       let edges = [];
 
@@ -104,13 +114,11 @@ export default {
       this.netdata.edges = new DataSet(edges);
       network.setData(this.netdata);
     },
-    netdata(newValue, oldValue) {
-      console.log({ newValue: newValue, oldValue: oldValue });
-    },
   },
   mounted: function () {
     var container = document.getElementById("mynetwork");
     network = new Network(container, this.netdata, this.options);
+    // this.update_data(this.current_graph);
   },
 };
 </script>
