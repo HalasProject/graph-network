@@ -30,12 +30,13 @@ class GraphSeeder extends Seeder
         $this->getFaker();
         $i = 0;
         $j = 0;
+        $k = 0;
         while ($i < env('MAX_GRAPH', 10)) {
             $graph_id = Graph::create([
                 'name' => $this->faker->name,
-                'description' => $this->faker->text(100)
+                'description' => $this->faker->text(50)
             ])->id;
-            for ($j = 0; $j < env('MAX_NODES', 100); $j++) {
+            for ($j = 0; $j < rand(2, env('MAX_NODES', 100)); $j++) {
                 Node::create([
                     'graph_id' => $graph_id,
                     'tooltip' => Str::random()
@@ -43,14 +44,14 @@ class GraphSeeder extends Seeder
             }
             $i++;
         }
-        $i = 0;
-        while ($i < 200) {
+        
+        while ($k < 200) {
             $nodes = Node::where('graph_id', Graph::all()->random(1)->first()->id)->inRandomOrder()->limit(2)->get();
             Relation::create([
-                'node_id' => $nodes[0]->id ,
-                'related_node_id' => $nodes[1]->id,
+                'node_id' => $nodes[0]->id,
+                'related_node_id' => $nodes[1]->id
             ]);
-            $i++;
+            $k++;
         }
     }
 }

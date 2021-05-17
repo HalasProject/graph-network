@@ -26,4 +26,9 @@ class Relation extends Model
       protected $fillable = ['node_id', 'related_node_id'];
 
       protected $hidden = ['pivot'];
+
+      public function nodes()
+      {
+          return $this->belongsTo('App\Node','id');
+      }
 }

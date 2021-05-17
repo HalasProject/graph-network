@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,7 +22,6 @@ use Illuminate\Support\Facades\Route;
  */
 Route::get('graphs', 'GraphController@allGraphs');
 
-
 /**
  * post createGraph
  * Summary: Create new graph
@@ -44,7 +42,6 @@ Route::get('graphs/{id}', 'GraphController@oneGraph');
  * Notes: 
  */
 Route::get('graphs/{id}/statistics', 'GraphController@oneGraphStatistics');
-
 
 /**
  * put editGraph
@@ -67,6 +64,13 @@ Route::delete('graph/{id}', 'GraphController@deleteGraph');
  */
 Route::get('node/{id}', 'NodeController@oneNode');
 
+/**
+ * put editNode
+ * Summary: edit tooltip of a specific node
+ * Notes: 
+ */
+Route::put('node/{id}/edit', 'NodeController@editNode');
+
 
 /**
  * post createNode
@@ -81,3 +85,17 @@ Route::post('node', 'NodeController@createNode');
  * Notes: 
  */
 Route::delete('node/{id}', 'NodeController@deleteNode');
+
+/**
+ * post createRelation
+ * Summary: create new relation between two node
+ * Notes: 
+ */
+Route::post('node/relation', 'NodeController@createRelation');
+
+/**
+ * post deleteRelation
+ * Summary: Delete relation between node
+ * Notes: 
+ */
+Route::delete('node/relation/{id}', 'NodeController@deleteRelation');

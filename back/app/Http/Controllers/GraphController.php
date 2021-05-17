@@ -4,20 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Graph;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 
 class GraphController extends BaseController
 {
-    public function allGraphs()
+    /**
+     * allGraphs
+     *
+     * @return JsonResponse
+     */
+    public function allGraphs(): JsonResponse
     {
         $graphs = Graph::orderBy('created_at', 'DESC')->get();
         return response()->json([
             'data' => $graphs,
             'status' => true
-        ]);
+        ], 200);
     }
 
-    public function createGraph(Request $request)
+    /**
+     * createGraph
+     *
+     * @param  Illuminate\Http\Request $request
+     * @return JsonResponse
+     */
+    public function createGraph(Request $request): JsonResponse
     {
         if ($graph = Graph::create($request->all())) {
             return response()->json([
@@ -28,7 +40,13 @@ class GraphController extends BaseController
         }
     }
 
-    public function oneGraph($id)
+    /**
+     * oneGraph
+     *
+     * @param  Integer $id
+     * @return JsonResponse
+     */
+    public function oneGraph($id): JsonResponse
     {
         $graph = Graph::findOrFail($id);
         return response()->json([
@@ -37,7 +55,13 @@ class GraphController extends BaseController
         ], 200);
     }
 
-    public function oneGraphStatistics($id)
+    /**
+     * oneGraphStatistics
+     *
+     * @param  Integer $id
+     * @return JsonResponse
+     */
+    public function oneGraphStatistics($id): JsonResponse
     {
         $graph = Graph::with('nodes', 'nodes.relations')->findOrFail($id);
         return response()->json([
@@ -46,7 +70,13 @@ class GraphController extends BaseController
         ], 200);
     }
 
-    public function deleteGraph($id)
+    /**
+     * deleteGraph
+     *
+     * @param  Intefer $id
+     * @return JsonResponse
+     */
+    public function deleteGraph($id): JsonResponse
     {
         try {
             Graph::destroy($id);
@@ -63,7 +93,14 @@ class GraphController extends BaseController
         }
     }
 
-    public function editGraph($id, Request $request)
+    /**
+     * editGraph
+     *
+     * @param  Integer $id
+     * @param  Illuminate\Http\Request $request
+     * @return JsonResponse
+     */
+    public function editGraph($id, Request $request): JsonResponse
     {
         $graph = Graph::findOrFail($id);
         if ($graph->update($request->all())) {

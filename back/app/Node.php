@@ -34,8 +34,12 @@ class Node extends Model
         return $this->belongsTo('App\Graph');
     }
 
+    // public function relations()
+    // {
+    //     return $this->belongsToMany('App\Node','App\Relation','node_id','related_node_id');
+    // }
     public function relations()
     {
-        return $this->belongsToMany('App\Node','App\Relation','node_id','related_node_id');
+        return $this->hasMany('App\Relation','node_id');
     }
 }
