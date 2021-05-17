@@ -37,7 +37,7 @@ npm run serve
 # Usage
 Create database table & Generate random graphs
 ```
-php artisan migrate && php artisan db:ssed
+php artisan migrate && php artisan db:seed
 ```
 Run server
 ```
